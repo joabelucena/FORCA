@@ -14,13 +14,7 @@ import br.com.forca.model.Palavra;
 
 public class Util {
 
-	private Boolean open = true;
-
 	private static final String CAT_DIR = "categorias";
-
-	private static final int MAX_COL = 55;
-
-	private static final int DEFAULT_ALIGN = 1;
 
 	/**
 	 * Returns a pseudo-random number between min and max, inclusive. The
@@ -87,106 +81,10 @@ public class Util {
 		
 		return false;
 	}
-
-	public void print(String phrase, boolean footer) {
-
-		if (getOpen()) {
-			setOpen(false);
-			printOpen();
-		}
-
-		printf(phrase, DEFAULT_ALIGN, false, footer);
-
-	}
-
-	public void print(String phrase, int align, boolean footer) {
-
-		if (getOpen()) {
-			setOpen(false);
-			printOpen();
-		}
-
-		printf(phrase, align, false, footer);
-
-	}
-
-	private void printOpen() {
-		printf("Bem Vindo ao Jogo da Forca!!"				, 2, true, true);
-		printf("Regras"										, 2, false, true);
-		printf("1) Escolha a categoria"						, 1, false, false);
-		printf("2) Tente acertar as letras"					, 1, false, false);
-		printf("3) A qualquer momento digite 'forca' para"	, 1, false, false);
-		printf("arriscar um palpite de palavra."			, 1, false, true);
-	}
-
-	private void printf(String phrase, int align, boolean header, boolean footer) {
-
-		if (header)
-			System.out
-					.println(new String(new char[MAX_COL]).replace("\0", "#"));
-
-		// Tratar quebar de linha
-		if (phrase.length() > (MAX_COL - 6)) {
-
-		} else {
-			
-			int spaceQt = ((MAX_COL - 6) - phrase.length());
-			
-			
-			switch (align) {
-			
-			case 1:
-				
-				System.out.println("## "
-						+ phrase
-						+ new String(new char[spaceQt]).replace("\0", " ")
-						+ " ##");
-
-				break;
-
-			case 2:
-				
-				
-				System.out.println("## "
-						+ new String(new char[spaceQt / 2]).replace("\0", " ")
-						+ phrase
-						+ new String(new char[spaceQt % 2 == 0 ? spaceQt / 2 : (spaceQt / 2)+1]).replace("\0", " ")
-						+ " ##");
-
-				break;
-
-			default:
-				break;
-			}
-
-		}
-
-		if (footer)
-			System.out
-					.println(new String(new char[MAX_COL]).replace("\0", "#"));
-	}
-
-	@Deprecated
-	public void clearConsole(){
-		try {
-			Runtime.getRuntime().exec("cls");
-			
-			setOpen(true);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+	public String read(){
+		return String.valueOf(System.console().readPassword());
 	}
 	
 	
-	/**
-	 * Getters and Setters
-	 */
-	public Boolean getOpen() {
-		return open;
-	}
-
-	public void setOpen(Boolean open) {
-		this.open = open;
-	}
 }
